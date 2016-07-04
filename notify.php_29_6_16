@@ -1,0 +1,744 @@
+<?php
+include("include/header.php");
+include("getProducts.php");
+ob_start();
+
+$ip = $_SERVER['REMOTE_ADDR'];
+$geopluginURL = 'http://www.geoplugin.net/php.gp?ip=' . $ip;
+$details = unserialize(file_get_contents($geopluginURL));
+$header1 = "";
+$header2 = "";
+$header3 = "";
+$header4 = "";
+$header5 = "";
+$deliverydate = '';
+$itemCode = '';
+$carddate = '';
+$raddress1 = '';
+$raddress2 = '';
+$rcity = '';
+$rcountry = '';
+$cemail = '';
+$rattention = '';
+$rfirstname = '';
+$rlastname = '';
+$rphone = '';
+$rstate = '';
+$rzip = '';
+$caddress1 = '';
+$caddress2 = '';
+$ccity = '';
+$ccountry = '';
+$cfirstname = '';
+$clastname = '';
+$cphone = '';
+$cstate = '';
+$czip = '';
+$ccardnum = '';
+$cvv2 = '';
+$ccardtype = '';
+$ccardname = '';
+$rinstructions = '';
+$renclosure = '';
+$flag = 0;
+$email_message = '';
+$order = '';
+$headers = "From: admin@flowerwyz.com \r\n";
+$headers .= "MIME-Version: 1.0\r\n";
+$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+
+$cur_time = date('m/d/Y H:i:s');
+$dateTime = new DateTime($cur_time, new DateTimeZone('America/New_York'));
+$to = 'flowerwyz@gmail.com';
+//$to = 'biswajit@wtbglobal.com';
+//$to = 'infra@sumanus.com';
+
+$result = mysql_query("SELECT * FROM " . TABLE_PERMISSION . " WHERE id=1");
+$row1 = mysql_fetch_object($result);
+if ($row1->is_live == 'N') {
+    $subject = "Sending New Order[T]";
+    $flag = 3;
+} else {
+    $subject = "Sending New Order";
+}
+
+
+if ($_REQUEST['save'] == 'Continue') {
+
+    //print_r($_POST);
+    // DIE;
+    $amount = $_REQUEST['amount'];
+    // die;
+    //$product_id = count($_POST['product_id']);
+    $i = 1;
+    foreach ($_POST['product_id'] as $val) {
+        $rfirstname = $_POST['rfirstname_' . $i];
+        $rlastname = $_POST['rlastname_' . $i];
+        $rattention = $_POST['rattention_' . $i];
+        $rphone = $_POST['rphone_' . $i];
+        $rstate = $_POST['rstate_' . $i];
+        $rcountry = $_POST['rcountry_' . $i];
+        $rcity = $_POST['rcity_' . $i];
+        $rzip = $_POST['rzip_' . $i];
+        $renclosure = $_POST['renclosure_' . $i];
+        $rinstructions = $_POST['rinstructions_' . $i];
+        $raddress1 = $_POST['raddress1_' . $i];
+        $raddress2 = $_POST['raddress2_' . $i];
+        $cfirstname = $_POST['cfirstname'];
+        $clastname = $_POST['clastname'];
+        $caddress1 = $_POST['caddress1'];
+        $caddress2 = $_POST['caddress2'];
+        $ccity = $_POST['ccity'];
+        $ccountry = $_POST['ccountry'];
+        $cstate = $_POST['cstate'];
+        $czip = $_POST['czip'];
+        $phone_code = $_POST['phone_code'];
+        $cphone = $_POST['cphone'];
+        $cemail = $_POST['cemail'];
+        $ccardname = $_POST['ccardname'];
+        $ccardtype = $_POST['ccardtype'];
+        $ccardnum = $_POST['ccardnum'];
+        $experition_date = $_POST['experition_date'];
+        $cvv = $_POST['cvv2'];
+
+        $r1 = mysql_query("update " . $prev . "cart set rfirstname='" . $rfirstname . "',rlastname='" . $rlastname . "',rattention='" . $rattention . "',rphone='" . $rphone . "',rstate='" . $rstate . "'
+             ,rcountry='" . $rcountry . "',rcity='" . $rcity . "',rzip='" . $rzip . "',renclosure='" . $renclosure . "',rinstructions='" . $rinstructions . "',raddress1='" . $raddress1 . "',raddress2='" . $raddress2 . "'
+                 ,cfirstname='" . $cfirstname . "',clastname='" . $clastname . "',caddress1='" . $caddress1 . "',caddress2='" . $caddress2 . "',ccity='" . $ccity . "',ccountry='" . $ccountry . "',cstate='" . $cstate . "',czip='" . $czip . "'
+                     ,phone_code='" . $phone_code . "',cphone='" . $cphone . "',cemail='" . $cemail . "',ccardname='" . $ccardname . "',ccardtype='" . $ccardtype . "'
+                         ,ccardnum='" . $ccardnum . "',experition_date='" . $experition_date . "',cvv='" . $cvv . "' where product_id='" . $val . "'  and purchased='N' and OrderID='" . GetCartId() . "'");
+
+        $i++;
+    }
+
+    /*
+     * Order
+     */
+    $q = "insert into " . $prev . "orders set 
+					user_id=\"" . $_SESSION['user_id'] . "\",
+					ip_address=\"" . $ip . "\",
+					amount=\"" . $amount . "\",
+					status='P',
+					ord_date=\"" . date("Y-m-d H:i:s", $dateTime->format('U')) . "\"";
+
+    // die();
+    $rr = mysql_query($q);
+    $OrderID = mysql_insert_id();
+    if ($rr) {
+        mysql_query("update " . $prev . "cart set OrderID='" . $OrderID . "',user_id='" . $_SESSION['user_id'] . "' where purchased='N' and OrderID='" . GetCartId() . "'");
+    }
+
+    $r = mysql_query("select " . $prev . "cart.* from " . $prev . "cart where " . $prev . "cart.OrderID='" . $OrderID . "' and " . $prev . "cart.purchased='N' and " . $prev . "cart.type_id='1'");
+    //echo "select " . $prev . "cart.* from " . $prev . "cart where ". $prev . "cart.OrderID='" . GetCartId() . "' and " . $prev . "cart.purchased='N' and " . $prev . "cart.type_id='1'";
+    $totRow = mysql_num_rows($r);
+    while ($row = @mysql_fetch_array($r)):
+
+        $deliverydate = $row['delivery_date'];
+        $product_id = $row['product_id'];
+        $itemCode = getProductCodeById($product_id);
+        $carddate = $row['experition_date'];
+        $experition_date = explode('/', $carddate);
+        $ccExpMonth = $experition_date[0];
+        $ccExpYear = $experition_date[1];
+        $raddress1 = $row['raddress1'];
+        $raddress2 = $row['raddress2'];
+        $rcity = $row['rcity'];
+        $rcountry = $row['rcountry'];
+        $cemail = $row['cemail'];
+        $rattention = $row['rattention'];
+        $rfirstname = $row['rfirstname'];
+        $rlastname = $row['rlastname'];
+        $rphone = $row['rphone'];
+        $rstate = $row['rstate'];
+        $rzip = $row['rzip'];
+        $caddress1 = $row['caddress1'];
+        $caddress2 = $row['caddress2'];
+        $ccity = $row['ccity'];
+        $ccountry = $row['ccountry'];
+        $cfirstname = $row['cfirstname'];
+        $clastname = $row['clastname'];
+        $cphone = $row['cphone'];
+        $phone_code = $row['phone_code'];
+        $cstate = $row['cstate'];
+        $czip = $row['czip'];
+        $ccardnum = $row['ccardnum'];
+        $cvv2 = $row['cvv'];
+        $ccardtype = $row['ccardtype'];
+        $ccardname = $row['ccardname'];
+        $rinstructions = $row['rinstructions'];
+        $renclosure = $row['renclosure'];
+
+
+
+        $err_msg = '';
+
+        if ($itemCode == '') {
+            $err_msg = "Please select at least one product.";
+            $flag = 2;
+        }
+        if ($rfirstname == '') {
+            $err_msg .= " Recipient First Name.";
+            $flag = 1;
+        }
+        if ($rlastname == '') {
+            $err_msg .= " Recipient Last Name.";
+            $flag = 1;
+        }
+        if ($rphone == '') {
+            $err_msg .= " Recipient Phone Number.";
+            $flag = 1;
+        }
+        if (!empty($rphone)) {
+            // $rphonestr = preg_replace('/\D/', '', $rphone);
+            if (!preg_match('/^\(\d{3}\) \d{3} \d{4}$/', $rphone)) {
+                $err_msg .= 'Please Enter Valid Recipient Phone Number.';
+                $flag = 1;
+            }
+        }
+        if ($raddress1 == '') {
+            $err_msg .= " Recipient Address.";
+            $flag = 1;
+        }
+        if ($rcountry == '') {
+            $err_msg .=" Recipient Country.";
+            $flag = 1;
+        }
+        if ($rstate == '') {
+            $err_msg .= " Recipient State.";
+            $flag = 1;
+        }
+
+        if ($rcity == '') {
+            $err_msg .= " Recipient City.";
+            $flag = 1;
+        }
+        if ($rzip == '') {
+            $err_msg .= " Recipient Zip Code.";
+            $flag = 1;
+        }
+        if ($renclosure == '') {
+            $err_msg .= " Message On Card.";
+            $flag = 1;
+        }
+        if ($deliverydate == '') {
+            $err_msg .= " Delivery Date.";
+            $flag = 1;
+        }
+        if ($cfirstname == '') {
+            $err_msg .= " Billing First Name.";
+            $flag = 1;
+        }
+        if ($clastname == '') {
+            $err_msg .= " Billing Last Name.";
+            $flag = 1;
+        }
+        if ($caddress1 == '') {
+            $err_msg .=" Billing Address.";
+            $flag = 1;
+        }
+        if ($ccountry == '') {
+            $err_msg .= " Billing Country.";
+            $flag = 1;
+        }
+        if ($cstate == '') {
+            $err_msg .= " Billing State.";
+            $flag = 1;
+        }
+
+        if ($ccity == '') {
+            $err_msg .= " Billing City.";
+            $flag = 1;
+        }
+        if ($czip == '') {
+            $err_msg .= " Billing Zip Code.";
+            $flag = 1;
+        }
+        if ($cphone == '') {
+            $err_msg .= " Billing Phone Number.";
+            $flag = 1;
+        }
+        if ($cemail == '') {
+            $err_msg .= " Billing Email.";
+            $flag = 1;
+        }
+        if ($ccardtype == '') {
+            $err_msg .= " Card Type.";
+            $flag = 1;
+        }
+        if ($ccardname == '') {
+            $err_msg .= " Card Name.";
+            $flag = 1;
+        }
+        if ($ccardnum == '') {
+            $err_msg .= " Card Number.";
+            $flag = 1;
+        }
+        if (!empty($ccardnum)) {
+            $ccardnum = preg_replace('/\D/', '', $ccardnum);
+            if (!preg_match("/^[0-9]{16}+$/", $ccardnum)) {
+                $err_msg .= 'Please Enter Valid Card Number.';
+                $flag = 1;
+            }
+        }
+        if ($carddate == '') {
+            $err_msg .= " Expriation Date.";
+            $flag = 1;
+        }
+        if ($cvv2 == '') {
+            $err_msg .= " CVV Code.";
+            $flag = 1;
+        }
+
+
+        if ($flag == 0 || $flag == 3) {
+
+            $product = $ins->getProduct(API_USER, API_PASSWORD, $itemCode);
+
+            $arrProducts = array(
+                0 =>
+                array(
+                    "code" => $product['code'],
+                    "price" => $product['price']
+                ),
+            );
+            $rzip = '10011';
+            $ins->getTotal(API_USER, API_PASSWORD, $rzip, $arrProducts, $strAffiliateServiceCharge = '', $strAffiliateTax = '');
+            //print_r($ins->arrTotal);
+            $arrRecipient = array("address1" => $raddress1, "address2" => $raddress2, "city" => $rcity, "country" => $rcountry, "email" => $cemail, "institution" => $rattention, "name" => $rfirstname . ' ' . $rlastname, "phone" => $rphone, "state" => $rstate, "zip" => $rzip);
+            $arrCustomer = array("address1" => $caddress1, "address2" => $caddress2, "city" => $ccity, "country" => $ccountry, "email" => $cemail, "institution" => $rattention, "name" => $cfirstname . ' ' . $clastname, "phone" => $cphone, "state" => $cstate, "zip" => $czip);
+            $customerIP = $ip;
+            // $customerIP = '127.127.127.127';
+            //$arrCCInfo = array("ccExpMonth"=>11,"ccExpYear"=>18,"ccNum"=>"4445999922225","ccSecCode"=>"999","ccType"=>"VI");$cardMsg = "I LOVE YOU LETISHA!!"; //ccNum->CreditCard Number
+            $arrCCInfo = array("ccExpMonth" => $ccExpMonth, "ccExpYear" => $ccExpYear, "ccNum" => $ccardnum, "ccSecCode" => $cvv2, "ccType" => $ccardtype);
+
+            $cardMsg = trim($renclosure); //ccNum->CreditCard Number
+            $specialInstructions = trim($rinstructions);
+            //$deliveryDate = $deliverydate . 'T' . date('H:i:s') . 'Z'; //"2015-04-29T05:00:00.000Z"; //you can get this value from getDeliveryDates() call... the value must be dateTime format eg: 2011-01-15T05:00:00.000Z
+            $affiliateServiceCharge = "0";
+            $affiliateTax = "0";
+            $orderTotal = $product['price'] + $ins->arrTotal['serviceChargeTotal']; // You can get this value from getTotal() call.... $this->arrTotal['orderTotal'];
+            $subAffiliateID = 0;
+
+
+
+            if($row1->is_live == 'Y')
+                $ins->placeOrder(API_USER, API_PASSWORD, $arrRecipient, $arrCustomer, $customerIP, $arrCCInfo, $arrProducts, $cardMsg, $specialInstructions, $deliverydate, $affiliateServiceCharge, $affiliateTax, $orderTotal, $subAffiliateID); //return value stored in $this->arrOrder
+
+
+            $current = strtotime(date("Y-m-d"));
+            $date = strtotime($deliverydate);
+
+            $datediff = $date - $current;
+            $difference = floor($datediff / (60 * 60 * 24));
+
+            $email_message .= "Flower Name - " . $product['name'] . "<br>";
+            $email_message .= "Product No. - " . $itemCode . "<br>";
+            $email_message .="Price - $" . $product['price'] . "<br>";
+            $email_message .="Total - $" . $orderTotal . "<br><br>";
+
+            $email_message .="<b>SHIPPING DETAILS-</b> <br>";
+            $email_message .="Delivery Date - " . $deliverydate . " [" . GetDay($difference) . "]" . "<br>";
+            $email_message .="Name - " . $rfirstname . " " . $rlastname . "<br>";
+            $email_message .="Institution - " . $rattention . "<br>";
+            $email_message .="Address1 - " . $raddress1 . "<br>";
+            $email_message .="Address2 - " . $raddress2 . "<br>";
+            $email_message .="City - " . $rcity . "<br>";
+            $email_message .="State - " . $rstate . "<br>";
+            $email_message .="Country - " . $rcountry . "<br>";
+            $email_message .="Zip Code - " . $rzip . "<br>";
+            $email_message .="Phone - " . $rphone . "<br>";
+            $email_message .="Special Delivery Instructions - " . $rinstructions . "<br>";
+            $email_message .="Message On Card - " . $renclosure . "<br><br>";
+
+            $email_message .="<b>BILLING DETAILS-</b> <br>";
+            $email_message .="Name - " . $cfirstname . " " . $clastname . "<br>";
+            $email_message .="Address1 - " . $caddress1 . "<br>";
+            $email_message .="Address2 - " . $caddress2 . "<br>";
+            $email_message .="Email - " . $cemail . "<br>";
+            $email_message .="City - " . $ccity . "<br>";
+            $email_message .="State - " . $cstate . "<br>";
+            $email_message .="Country - " . $ccountry . "<br>";
+            $email_message .="Zip Code - " . $czip . "<br>";
+            $email_message .="Phone - " . $phone_code . ' ' . $cphone . "<br><br>";
+
+            $email_message .="<b>PAYMENT METHODS-</b><br>";
+            $email_message .="Card - " . $ccardtype . "<br>";
+            $email_message .="Name On Card - " . $ccardname . "<br>";
+            $email_message .="Card No. - " . $ccardnum . "<br>";
+            $email_message .="CVV Code - " . $cvv2 . "<br>";
+            $email_message .="Expriation Date - " . $carddate . "<br><br><br>";
+
+            if ($ins->arrOrder['orderNumber']) {
+                $header1 = "Thank You For Your Order!";
+                $header2 = "We Will Get Started With It Right Away.";
+                //$header3 = "Your Order Number is: #" . $ins->arrOrder['orderNumber'];
+                $header3 = "Your Order Number is: # " . $OrderID;
+                $subject = "Completed New Order #" . $OrderID;
+                $order = 'completed';
+                $q3=mysql_query("update " . $prev . "cart set purchased='Y',order_no='".$ins->arrOrder['orderNumber']."' where OrderID='$OrderID' AND product_id='$product_id' AND type_id='1'");
+                //mail($to, $subject, $email_message, $headers);
+            } elseif ($ins->arrOrder['faultstring']) {
+                $header1 = "OOPS! Your Order Didn't Go Through!";
+                $header2 = "Something Went Wrong With Your Credit Card Payment.";
+                $header3 = "Please Try With A Different Credit Card.";
+                $header5 = "<a href= '" . $vpath . "checkout.php?code=" . $itemCode . "'>Click here to try again</a>";
+                $a = explode(':', $ins->arrOrder['faultstring']);
+                $subject = "Failure Returned";
+                $email_message = "Message - " . end($a) . "<br>";
+                $email_message .= "OOPS! Your Order Didn't Go Through! <br>Something Went Wrong With Your Credit Card Payment.<br>Please Try With A Different Credit Card.";
+                $b = date('m/d/Y H:i:s');
+                $date = new DateTime($b, new DateTimeZone('America/New_York'));
+                $email_message .= "Timestamp - " . date("m/d/Y H:i:s", $date->format('U')) . " EST<br>";
+                //mail($to, $subject, $email_message, $headers);
+            } elseif ($row1->is_live == 'Y') {
+                $header1 = "OOPS! Your Order Didn't Go Through!";
+                $header2 = "Something Went Wrong With Your Credit Card Payment.";
+                $header3 = "Please Try With A Different Credit Card.";
+                $header5 = "<a href= '" . $vpath . "checkout.php?code=" . $itemCode . "'>Click here to try again</a>";
+                $subject = "XML Returned Void";
+                $c = date('m/d/Y H:i:s');
+                $date = new DateTime($c, new DateTimeZone('America/New_York'));
+                $a = explode(':', $ins->arrOrder['faultstring']);
+                $email_message = "OOPS! Your Order Didn't Go Through! <br>Something Went Wrong With Your Credit Card Payment.<br>Please Try With A Different Credit Card." . end($a);
+                $email_message .= "Timestamp - " . date("m/d/Y H:i:s", $date->format('U')) . " EST<br>";
+                //mail($to, $subject, $email_message, $headers);
+            } elseif ($row1->is_live == 'N') {
+                $header2 = "Your Information Has Been Submitted. We Will Get Back To You Shortly.";
+                //$to = 'flowerwyz@gmail.com';
+                $subject = "XML Has Not Been Called";
+                $email_message = "Your Information Has Been Submitted. We Will Get Back To You Shortly.";
+                //mail($to, $subject, $email_message, $headers);
+            }
+        } elseif ($flag == 1) {
+            $header1 = "OOPS! Your Order Didn't Go Through!";
+            $header2 = "Missing Values - " . $err_msg;
+            $header5 = "<a href= '" . $vpath . "checkout.php?code=" . $itemCode . "'>Click here to try again</a>";
+            //$to = 'flowerwyz@gmail.com';
+            $subject = "Missing Values";
+            $c = date('m/d/Y H:i:s');
+            $a = explode(':', $ins->arrOrder['faultstring']);
+            $date = new DateTime($c, new DateTimeZone('America/New_York'));
+            $email_message = "Missing Values - " . $err_msg;
+            $email_message .= end($a) . "<br>";
+            $email_message .= "Timestamp - " . date("m/d/Y H:i:s", $date->format('U')) . " EST<br>";
+            //mail($to, $subject, $email_message, $headers);
+        } elseif ($flag == 2) {
+            $header1 = "OOPS! Your Order Didn't Go Through!";
+            $header2 = $err_msg;
+            $header3 = "Please Try With A Different Item.";
+            //$to = 'flowerwyz@gmail.com';
+            $subject = "Invalid Item";
+            $c = date('m/d/Y H:i:s');
+            $date = new DateTime($c, new DateTimeZone('America/New_York'));
+            $email_message = "Invalid Item!";
+            $email_message .= "Timestamp - " . date("m/d/Y H:i:s", $date->format('U')) . " EST<br>";
+            //mail($to, $subject, $email_message, $headers);
+        }
+    endwhile;
+    $r3 = mysql_query("select " . $prev . "cart.* from " . $prev . "cart where ". $prev . "cart.OrderID='" . $OrderID . "' and " . $prev . "cart.purchased='N' and " . $prev . "cart.type_id='2'");
+    //echo "select " . $prev . "cart.* from " . $prev . "cart where ". $prev . "cart.OrderID='" . $OrderID . "' and " . $prev . "cart.purchased='N' and " . $prev . "cart.type_id='2'";
+    $cnt3 = mysql_num_rows($r3);
+    $i = 1;
+    $gift_email_message = '';
+    while ($row3 = @mysql_fetch_array($r3)):
+        
+        $ccardnum = preg_replace('/\D/', '', $row3['ccardnum']);
+        $carddate = $row3['experition_date'];
+        $experition_date = explode('/', $carddate);
+        $ccExpMonth = $experition_date[0];
+        $ccExpYear = $experition_date[1];
+        $product_id = $row3['product_id'];
+        $itemCode = getProductCodeById($product_id);
+        $deliverydate = $row3['delivery_date'];
+        $rattention = $row3['rattention'];
+        $rfirstname = $row3['rfirstname'];
+        $rlastname =  $row3['rlastname'];
+        $rinstructions = $row3['rinstructions'];
+        $raddress1 = $row3['raddress1'];
+        $raddress2 = $row3['raddress2'];
+        $rcity = $row3['rcity'];
+        $rstate = $row3['rstate'];
+        $rcountry = $row3['rcountry'];
+        $rphone = $row3['rphone'];        
+        $renclosure = $row3['renclosure'];
+        $caddress1 = $row3['caddress1'];
+        $caddress2 = $row3['caddress2'];
+        $ccity = $row3['ccity'];
+        $ccountry = $row3['ccountry'];
+        $cfirstname = $row3['cfirstname'];
+        $clastname = $row3['clastname'];
+        $cphone = $row3['cphone'];
+        $phone_code = $row3['phone_code'];
+        $cstate = $row3['cstate'];
+        $czip = $row3['czip'];       
+        $cvv2 = $row3['cvv'];
+        $ccardtype = $row3['ccardtype'];
+        $ccardname = $row3['ccardname'];
+                
+        $gift_email_message .="<b>GIFT PRODUCT DETAILS-</b> <br>";
+        $gift_email_message .= "Gift Name - " . getProductNameById($product_id) . "<br>";
+        $gift_email_message .= "Product No. - " . $itemCode . "<br>";
+        $gift_email_message .="Price - $" . $row3['price'] . "<br>";
+        
+        $gift_email_message .="<b>SHIPPING DETAILS-</b> <br>";
+        $gift_email_message .="Delivery Date - " . $deliverydate . "<br>";
+        $gift_email_message .="Name - " . $rfirstname . " " . $rlastname . "<br>";
+        $gift_email_message .="Institution - " . $rattention . "<br>";
+        $gift_email_message .="Address1 - " . $raddress1 . "<br>";
+        $gift_email_message .="Address2 - " . $raddress2 . "<br>";
+        $gift_email_message .="City - " . $rcity . "<br>";
+        $gift_email_message .="State - " . $rstate . "<br>";
+        $gift_email_message .="Country - " . $rcountry . "<br>";
+        $gift_email_message .="Zip Code - " . $rzip . "<br>";
+        $gift_email_message .="Phone - " . $rphone . "<br>";
+        $gift_email_message .="Special Delivery Instructions - " . $rinstructions . "<br>";
+        $gift_email_message .="Message On Card - " . $renclosure . "<br><br>";
+
+        $gift_email_message .="<b>BILLING DETAILS-</b> <br>";
+        $gift_email_message .="Name - " . $cfirstname . " " . $clastname . "<br>";
+        $gift_email_message .="Address1 - " . $caddress1 . "<br>";
+        $gift_email_message .="Address2 - " . $caddress2 . "<br>";
+        $gift_email_message .="Email - " . $cemail . "<br>";
+        $gift_email_message .="City - " . $ccity . "<br>";
+        $gift_email_message .="State - " . $cstate . "<br>";
+        $gift_email_message .="Country - " . $ccountry . "<br>";
+        $gift_email_message .="Zip Code - " . $czip . "<br>";
+        $gift_email_message .="Phone - " . $phone_code . ' ' . $cphone . "<br><br>";
+
+        $gift_email_message .="<b>PAYMENT METHODS-</b><br>";
+        $gift_email_message .="Card - " . $ccardtype . "<br>";
+        $gift_email_message .="Name On Card - " . $ccardname . "<br>";
+        $gift_email_message .="Card No. - " . $ccardnum . "<br>";
+        $gift_email_message .="CVV Code - " . $cvv2 . "<br>";
+        $gift_email_message .="Expriation Date - " . $carddate . "<br><br><br>";
+        
+
+        $recipient[$i] = array(
+            'name' => $row3['rfirstname'] . ' ' . $row3['rlastname'],
+            'institution' => $row3['rinstructions'],
+            'address1' => $row3['raddress1'],
+            'address2' => $row3['raddress2'],
+            'city' => $row3['rcity'],
+            'state' => $row3['rstate'],
+            'zipcode' => $row3['rzip'],
+            'country' => $row3['rcountry'],
+            'phone' => $row3['rphone'],
+        );
+        $totalProduct[] = array('code' => $itemCode, 'deliverydate' => $row3['delivery_date'], 'rpa' => 0);
+        $products[] = array(
+            'code' => $itemCode,
+            'deliverydate' => $deliverydate,
+            'rpa' => 0,
+            'cardmsg' => $renclosure,
+            'recipient' => $recipient[$i]
+        );
+
+        $customer = json_encode(array(
+            'name' => $row3['cfirstname'] . ' ' . $row3['clastname'],
+            'address1' => $row3['caddress1'],
+            'address2' => $row3['caddress2'],
+            'city' => $row3['ccity'],
+            'state' => $row3['cstate'],
+            'zipcode' => $row3['czip'],
+            'country' => $row3['ccountry'],
+            'phone' => $row3['rphone'],
+            'email' => $row3['cemail'],
+            'ip' => $row3['ip_address']
+        ));
+
+        $ccinfo = json_encode(array(
+            'type' => $row3['ccardtype'],
+            'expmonth' => $ccExpMonth,
+            'expyear' => $ccExpYear,
+            'ccnum' => $ccardnum,
+            'cvv2' => $row3['cvv']
+        ));
+
+        $i++;
+    endwhile;
+
+    /*
+     * GetTotal
+     */
+    $ch = curl_init();
+    $username = '527492';
+    $password = '8EEkyK';
+    $auth = base64_encode("{$username}:{$password}");
+
+//$products = array(array('code' => 'WGG193', 'deliverydate' => '04/30/2016', 'rpa' => 0),array('code' => 'WGG193', 'deliverydate' => '04/29/2016', 'rpa' => 0)); //one item
+//echo '<pre>';
+//print_r($products);
+//die;
+//$products = array(array('code' => 'WGX673', 'deliverydate' => '10/29/2015', 'rpa' => 5), array('code' => 'WGCDNGM53', 'deliverydate' => '10/30/2015', 'rpa' => 4)); //two items
+    $totalProduct = json_encode($totalProduct);
+    
+    curl_setopt_array(
+            $ch, array(
+        CURLOPT_URL => "https://www.floristone.com/api/rest/giftbaskets/gettotal?products=$totalProduct",
+        CURLOPT_HTTPHEADER => array("Authorization: {$auth}"),
+        CURLOPT_RETURNTRANSFER => true
+            )
+    );
+    $output = json_decode(curl_exec($ch)); // return obj
+    //curl_close($ch);
+
+    $ordertotal = $output->ORDERTOTAL;
+    $products = json_encode($products);
+    $gift_email_message .="Total - $" . $ordertotal . "<br><br>";
+    $data = array('products' => $products, 'customer' => $customer, 'ccinfo' => $ccinfo, 'ordertotal' => $ordertotal);
+    curl_setopt_array(
+            $ch, array(
+        CURLOPT_URL => "https://www.floristone.com/api/rest/giftbaskets/placeorder",
+        CURLOPT_HTTPHEADER => array("Authorization: {$auth}"),
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => $data
+            )
+    );
+
+
+    $response = curl_exec($ch);
+    
+
+// curl_exec returns either the result or boolean false if something went wrong
+    if ($response !== false) {
+        $output = json_decode($response);
+        $order_no = $output->ORDERNO;
+        //print_r($output);
+        $q6=mysql_query("update " . $prev . "cart set purchased='Y',order_no='$order_no' where OrderID='$OrderID' AND type_id='2'");
+        $order = 'completed';
+    } else {
+        echo "Something went wrong!!";
+    }
+    curl_close($ch);
+    //die;
+    if($order == 'completed'){
+        $status=mysql_query("SELECT COUNT(OrderID) status_cnt FROM ".$prev."orders where OrderID=".$OrderID." and status='P'");
+        $row=mysql_fetch_object($status);
+        if($row->status_cnt>0){
+              $q1 = "update " . $prev . "orders set status = 'D' where OrderID = '$OrderID'  ";
+              $s=mysql_query($q1);
+
+              
+    }
+    }  
+    $message = $email_message.$gift_email_message;
+    mail($to, $subject, $message, $headers);
+
+} else {
+    header('location:index.htm');
+}
+//print_r($response);
+?>
+<style>
+    .header5{        
+        width: 100%;
+        text-align: center;
+        float: right;       
+        text-decoration: underline;
+    }
+    .header5 a{
+        color: blue;
+    }
+</style>
+<div class="innerWrap">         
+    <div class="row-fluid">
+
+        <div class="Content" id="section">
+            <div class="content_first">
+                <span class="header1"><?php echo $header1 ?></span>
+                <span class="header2"><?php echo $header2; ?></span>
+                <span class="header3"><?php echo $header3; ?></span>
+                <span class="header5"><?php echo $header5; ?></span>
+            </div>
+            <div style="clear: both"></div>
+            <div class="content_secnd">
+                <span class="header4">ALSO CHECK OUT SOME OF OUR BEST SELLING FLOWERS BELOW</span>
+                <div class="line"></div>
+                <table class="FeaturedProducts notify" width="100%" align="center" border="0" cellpadding="0" cellspacing="1">
+                    <tbody>
+                        <tr> 
+                            <td>
+                                <div class="ProductImage ">
+                                    <a><img src="https://www.flowerwyz.com/images/send-flowers.jpg" alt="" height="211px" width="183px"></a>
+                                </div>
+                                <div class="ProductDetails">
+                                    <a>Send Flowers Anywhere</a>
+                                </div>
+                                <div class="ProductPriceRating">
+                                    <em>Lights of the Season</em>
+                                    <em>$49.95</em>
+                                </div>
+                                <div style="text-align:center; margin-top:5px;">
+                                    <a href="<?= $vpath; ?>item.php?code=B9-4833"  data-fancybox-type="iframe" class="splFancyIframe btn-pink">VIEW ITEM</a>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ProductImage ">
+                                    <a><img src="https://www.flowerwyz.com/images/online-flower-delivery.jpg" alt="" height="211px" width="183px"></a>
+                                </div>
+                                <div class="ProductDetails">
+                                    <a>Send Flowers Anywhere</a>
+                                </div>
+                                <div class="ProductPriceRating">
+                                    <em>The Winter Wishes Bouquet</em>
+                                    <em>$64.95</em>
+                                </div>
+                                <div style="text-align:center; margin-top:5px;">
+                                    <a href="<?= $vpath; ?>item.php?code=B17-4362"  data-fancybox-type="iframe" class="splFancyIframe btn-pink">VIEW ITEM</a>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ProductImage ">
+                                    <a><img src="https://www.flowerwyz.com/images/flowers-delivered.jpg" alt="" height="211px" width="183px"></a>
+                                </div>
+                                <div class="ProductDetails">
+                                    <a>Send Flowers Anywhere</a>
+                                </div>
+                                <div class="ProductPriceRating">
+                                    <em>Spirit of the Season</em>
+                                    <em>$49.95</em>
+                                </div>
+                                <div style="text-align:center; margin-top:5px;">
+                                    <a href="<?= $vpath; ?>item.php?code=B10-4787"  data-fancybox-type="iframe" class="splFancyIframe btn-pink">VIEW ITEM</a>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ProductImage ">
+                                    <a><img src="https://www.flowerwyz.com/images/deliver-flowers.jpg" alt="" height="211px" width="183px"></a>
+                                </div>
+                                <div class="ProductDetails">
+                                    <a>Send Flowers Anywhere</a>
+                                </div>
+                                <div class="ProductPriceRating">
+                                    <em>The Abundant Harvest Basket</em>
+                                    <em>$49.95</em>
+                                </div>
+                                <div style="text-align:center; margin-top:5px;">
+                                    <a href="<?= $vpath; ?>item.php?code=B3-4347"  data-fancybox-type="iframe" class="splFancyIframe btn-pink">VIEW ITEM</a>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ProductImage ">
+                                    <a><img src="https://www.flowerwyz.com/images/sending-flowers.jpg" alt="" height="211px" width="183px"></a>
+                                </div>
+                                <div class="ProductDetails">
+                                    <a>Send Flowers Anywhere</a>
+                                </div>
+                                <div class="ProductPriceRating">
+                                    <em>The Season's Glow Centerpiece</em>
+                                    <em>$59.95</em>
+                                </div>
+                                <div style="text-align:center; margin-top:5px;">
+                                    <a href="<?= $vpath; ?>item.php?code=B16-4830"  data-fancybox-type="iframe" class="splFancyIframe btn-pink">VIEW ITEM</a>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php include("include/footer.php"); ?>

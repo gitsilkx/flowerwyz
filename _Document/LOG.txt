@@ -1,0 +1,119 @@
+*********************** CRON STARTS [TIMESTAMP] ***********************
+
+STEP:1 [TAKE INITIAL COUNTS]
+
+a) Count from foreign API data: [x]
+b) Count from local API dynamic data: [x]
+c) Count from local static data: [x]
+
+d) Count from local static [Deleted] data: [x]
+e) Count from local dynamic [Deleted] data: [x]
+
+f) Count from local static [Added] data: [x]
+g) Count from local dynamic [Added] data: [x]
+
+h) Mismatched volume since last Cron [a - b] = [x]
+i) Mismatched volume since last Cron [a - c] = [x]
+
+Moving on to Step 2 [TIMESTAMP]
+
+***********************************************************************
+
+STEP:2 [TRUNCATE/REFILL LOCAL API DYNAMIC/DELETED/ADDED DATA]
+
+a) Start Truncate local API dynamic data [TIMESTAMP]
+b) End Truncate local API dynamic data [TIMESTAMP]
+
+c) Start Insert local API dynamic data [TIMESTAMP]
+d) End Insert local API dynamic data [TIMESTAMP]
+
+e) Start Truncate local dynamic [Deleted] data [TIMESTAMP]
+f) Start Truncate local dynamic [Added] data [TIMESTAMP]
+
+g) Count from local API dynamic data: [x]
+h) Count from local Static data [from STEP:1]: [x]
+i) Count from local dynamic [Deleted] data: [x]
+j) Count from local dynamic [Added] data: [x]
+
+Moving on to Step 3 [TIMESTAMP]
+
+***********************************************************************
+
+STEP:3 [UPDATE LOCAL STATIC DATA, INSERT DELETED DATA]
+
+a) Count of local static data untouched: [x]
+b) Count of local static data de-activated: [x]
+
+c) Count of local static deleted data inserted: [x]
+d) Count of local dynamic deleted data inserted: [x]
+
+e) Count of local static [Deleted] data: [x]
+f) Count of local dynamic [Deleted] data: [x]
+
+
+Moving on to Step 4 [TIMESTAMP]
+
+***********************************************************************
+
+STEP:4 [UPDATE LOCAL STATIC DATA, INSERT ADDED DATA]
+
+a) Count of local API dynamic data [from STEP:1]: [x]
+
+b) Count of local static added data inserted: [x]
+c) Count of local dynamic added data inserted: [x]
+
+d) Count from local static [Deleted] data: [x]
+e) Count from local dynamic [Deleted] data: [x
+
+Moving on to Step 5 [TIMESTAMP]
+
+***********************************************************************
+
+STEP:5 [CREATE REPORTS AND TRUNCATE LOCAL DYNAMIC DELETED/ADDED DATA]
+
+a) Prepare report DELETED-TIMESTAMP.XLS [TIMESTAMP]
+b) Save/FTP report DELETED-TIMESTAMP.XLS [TIMESTAMP]
+c) Email report DELETED-TIMESTAMP.XLS [TIMESTAMP]
+
+d) TOTAL RECORDS DELETED TODAY: [x]
+
+e) Start Truncate local dynamic [Deleted] data [TIMESTAMP]
+f) End Truncate local dynamic [Deleted] data [TIMESTAMP]
+
+g) Prepare report ADDED-TIMESTAMP.XLS [TIMESTAMP]
+h) Save/FTP report ADDED-TIMESTAMP.XLS [TIMESTAMP]
+i) Email report ADDED-TIMESTAMP.XLS [TIMESTAMP]
+
+j) TOTAL RECORDS ADDED TODAY: [x]
+
+k) Start Truncate local dynamic [Added] data [TIMESTAMP]
+l) End Truncate local dynamic [Added] data [TIMESTAMP]
+
+Moving on to Step 6 [TIMESTAMP]
+
+***********************************************************************
+
+STEP:6 [TAKE FINAL COUNTS AND FINISH CRON]
+
+a) Count from foreign API data: [x]
+b) Count from local API dynamic data: [x]
+c) Count from local static data: [x]
+
+d) Count from local static [Deleted] data: [x]
+e) Count from local dynamic [Deleted] data: [x]
+
+f) Count from local static [Added] data: [x]
+g) Count from local dynamic [Added] data: [x]
+
+h) Mismatched volume since beginning of this Cron [a - b] = [x]
+i) Mismatched volume since beginning of this  Cron [a - c] = [x]
+
+Ending Cron [TIMESTAMP]
+
+*********************** CRON ENDS - [TIMESTAMP] ***********************
+
+
+a) Save/FTP report LOG-TIMESTAMP.TXT [TIMESTAMP]
+b) Email report LOG-TIMESTAMP.TXT [TIMESTAMP]
+
+

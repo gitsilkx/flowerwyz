@@ -1,0 +1,223 @@
+<?php
+session_start();
+//require_once("configs/path.php");
+$vpath = "https://www.flowerwyz.com/flowerwyz/";
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <!--<html lang="en">-->
+    <head>
+        <title>FlowerWyz Same Day Flower Delivery | Same Day Delivery Flowers Delivered Today | Same Day Flowers</title>
+        <meta name="keywords" content="<?= $site_keys ?>" />
+        <meta name="description" content="<?= $site_desc ?>" />
+        <meta name="title" content="<?= $site_title ?>" />
+        <meta name="robots" content="noindex,nofollow" />
+
+
+        <link href="<?= $vpath ?>css/styles.css" rel="stylesheet" type="text/css" />
+        <link href="<?= $vpath ?>css/style.css" rel="stylesheet" type="text/css" />
+        <link href="<?= $vpath ?>css/responsive.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="<?= $vpath ?>css/skin.css" />
+        <link rel="stylesheet" href="<?= $vpath ?>css/Arvo.css" />
+        <link rel="stylesheet" href="<?= $vpath ?>css/Lato.css" />
+        <link rel="stylesheet" href="<?= $vpath ?>css/OpenSans.css" />
+
+        <script src="<?= $vpath ?>js/jquery.js"></script>
+        <script src="<?= $vpath ?>js/menudrop.js"></script>
+        <script type="text/javascript" src="<?= $vpath ?>js/common.js"></script>
+        <script type="text/javascript" src="<?= $vpath ?>js/iselector.js"></script>
+        <script type="text/javascript" src="<?= $vpath ?>js/general.js"></script>
+
+        <script type="text/javascript">
+
+            var ThumbImageWidth = 183;
+            var ThumbImageHeight = 183;
+
+            (function(i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function() {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-57269771-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+
+        <script type="text/javascript" src="<?= $vpath ?>js/jquery_002.js"></script>
+        <script type="text/javascript" src="<?= $vpath ?>js/superfish.js"></script>
+
+        <script type="text/javascript">
+
+            $(function() {
+
+                if (typeof $.fn.superfish == "function") {
+
+                    $("ul.sf-menu").superfish({
+                        delay: 800,
+                        dropShadows: 0,
+                        speed: "fast"
+
+                    })
+
+                            .find("ul")
+                            .bgIframe();
+
+                }
+
+            })
+
+        </script>
+        <!---------------------------- Script For Fancy Box START -------------------------------->
+        <script type="text/javascript" src="<?= $vpath; ?>fancybox/jquery.fancybox-1.3.4.js"></script>
+        <link rel="stylesheet" type="text/css" href="<?= $vpath; ?>fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+        <!---------------------------- Script For Fancy Box END -------------------------------->
+    </head>
+    <body>
+        <!--Main Container Start-->
+        <div id="Container">
+
+            <div id="header">
+                <div class="h_top">
+                    <div class="innerWrap">
+                        <h4><b>Online Flowers Delivery | Send Flowers Online | Cheap Flower Delivery</b></h4>
+                        <div class="cboth"></div>
+                    </div>
+                </div>
+                <div class="h_bottom">
+                    <div class="innerWrap">
+                        <div class="logo_area">
+                            <a href="<?=$vpath?>" class="h_logo">
+                                <span class="h_logo_icons"></span>
+                                <span class="h_logo_name">Flower WyZ</span>
+                            </a>
+                            <div class="h_social_icon">
+                                <ul>
+                                    <li><a href="#" class="fb"></a></li>
+                                    <li><a href="#" class="gplus"></a></li>
+                                    <li><a href="#"  class="insti"></a></li>
+                                    <li><a href="#"  class="pintit"></a></li>
+                                    <li><a href="#"  class="twitter"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="h_oderSec">
+                            <div class="h_orderby_icons"></div>
+                            <div class="h_oderby_rgt">
+
+                                Order NOW
+
+                                <br>
+
+                                    <strong>CALL</strong> for same day **
+
+                                    <br>
+
+                                        <span>flower delivery</span>
+
+                                        <p><span></span>USA & CANADA</p>
+                                        <p class="small">** Same day in select locations.<br>
+                                                ** Next day anywhere in the nation.</p>
+
+                                        </div>
+                                        </div>
+                                        <div class="h_contacts">
+
+                                            <div class="h_sociallinks">
+
+                                                <span><strong>florists login</strong></span>
+
+                                                <div class="cboth"></div>
+
+                                            </div>
+
+                                            <div class="h_cartArea">
+                                                <div class="h_cartArea_content">
+
+                                                    <input type="tex" placeholder="User Id"  class="florist_log" />
+
+                                                    <input type="password" placeholder="Password"  class="florist_log" />
+                                                    <a href="#" class="fr-pass">Forgot Password?</a>
+                                                    <input type="submit" value="Login" class="login_btn"  />
+                                                </div>
+
+                                                <div class="cboth"></div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="cboth"></div>
+                                        </div>
+                                        </div>
+                                        </div>
+
+                                        <div id="navigation">
+
+                                            <div class="innerWrap">
+
+                                                <div class="row-fluid mainNavBg">
+
+                                                    <div id="Menu"><ul><li class="First ActivePage"><a href="/index.htm"><span>Home</span></a></li>
+
+                                                            <li class="HasSubMenu ">
+
+                                                                <a href="/floral-arrangements-floral-delivery-from-local-florists-and-online-florists.htm"><span>Floral Delivery</span></a>
+
+                                                                <!--<ul>
+                                                 
+                                                         <li><a href="/index.htm">Same Day Flowers</a></li>
+                                                 
+                                                 </ul>-->
+
+                                                            </li>   <li class=" ">
+
+                                                                <a href="/send-plants-send-a-plant-delivery-orchid-delivery.htm"><span>plant delivery</span></a>
+
+
+
+                                                            </li>   <li class=" ">
+
+                                                                <a href="/bouquet-of-flowers-flower-bouquets-balloon-bouquets-bouquet-of-roses.htm"><span>Flower Bouquets</span></a>
+
+
+
+                                                            </li>   <li class=" ">
+
+                                                                <a href="/discount-flowers-flower-deals-flower-coupons-cheap-flowers-free-delivery.htm"><span>Discount Flowers</span></a>
+
+
+
+                                                            </li>   <li class=" ">
+
+                                                                <a href="/wholesale-flowers-wholesale-roses-bulk-flowers-online.htm"><span>Wholesale Flowers</span></a>
+
+
+
+                                                            </li>   <li class=" ">
+
+                                                                <a href="/exotic-flowers-and-exotic-plants-for-sale.htm"><span>Exotic Flowers</span></a>
+
+
+
+                                                            </li>   <li class=" ">
+                                                                <a href="/flower-shops-online-flower-stores.htm"><span>Flower Shops</span></a>
+                                                            </li>   
+                                                            <li class=" ">
+
+                                                                <a href="/order-flowers-online-for-delivery-where-to-buy-flowers-online.htm"><span>Order Flowers</span></a>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>

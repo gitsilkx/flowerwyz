@@ -1,0 +1,218 @@
+DB-hbs200_flowerwyz
+USER- hbs200_flowerwyz
+PWD- FLO@}[WER1@T/hbs200_flowerwyz
+
+ [code] => T55-2A [description] => This beautiful bouquet will most certainly arrive in style! Ready for the runway, as it were. A delightful combination of light colors and lovely flowers, it's simply beautiful. Light pink roses, white asiatic lilies, alstroemeria, cushion spray chrysanthemums and statice are delivered in a stylish vase. Style to spare! [dimension] => 11" h x 10 1/2" w [image] => https://www.floristone.com/flowers/products/T55-2A.jpg [name] => Arrive In Style [occasions] => [price] => 59.95 [productType] => V [thumbnail] => https://www.floristone.com/flowers/thumbnails/T55-2A_t.jpg
+
+http://support.hostgator.com/articles/cpanel/how-to-connect-to-the-mysql-database-remotely
+
+array(9) { ["affiliateServiceCharge"]=> string(1) "0" ["affiliateTax"]=> string(1) "0" ["floristOneServiceCharge"]=> string(5) "12.99" ["floristOneTax"]=> string(1) "0" ["orderNumber"]=> string(9) "198525490" ["orderTotal"]=> string(6) "122.89" ["serviceChargeTotal"]=> string(5) "12.99" ["subTotal"]=> string(5) "109.9" ["taxTotal"]=> string(1) "0" } array(0) { } array(0) { } array(0) { } array(9) { ["affiliateServiceCharge"]=> string(1) "0" ["affiliateTax"]=> string(1) "0" ["floristOneServiceCharge"]=> string(5) "12.99" ["floristOneTax"]=> string(1) "0" ["orderNumber"]=> string(9) "198525490" ["orderTotal"]=> string(6) "122.89" ["serviceChargeTotal"]=> string(5) "12.99" ["subTotal"]=> string(5) "109.9" ["taxTotal"]=> string(1) "0" } array(0) { } 
+
+
+
+Welcome to GatorChat!
+Chat ID:14231497. Question: I could not connect database. Please help me connect to database
+(3:01:26pm)System:Customer has entered chat and is waiting for an agent.
+(3:01:48pm)System:Thank you for verifying your billing account kfbs05@gmail.com!
+(3:04:26pm)Shaunathan S.:Greetings! Thank you for contacting Hostgator, my name is Shaunathan. I am a Windows Administrator on duty.
+(3:06:51pm)Samim:I could not connect database.
+(3:08:20pm)Samim:can you help me?
+(3:09:39pm)Shaunathan S.:Sure, how are you trying to connect first?
+(3:09:55pm)Shaunathan S.:Like a script on the server or trying to connect to alter the database from your home?
+(3:10:56pm)Samim:At first I created one db on your hostgator.
+(3:11:49pm)Samim:then I have to connet host,user,pwd, and db name
+(3:13:56pm)Shaunathan S.:Okay so you created the database on our hostgator account. Could you tell me which server this is for? I'm showing a few different packages.
+(3:14:38pm)Samim:Server Name gator3000
+(3:19:22pm)Shaunathan S.:OKay that would be a different type of hosting then I would be able to support. I went ahead and tried to contact someone from that department but unfortunately no one is available to immediately take the chat what I can do is go ahead and place you into their queue if you would like.
+(3:21:11pm)Samim:OKay I am waiting..
+(3:21:40pm)Shaunathan S.:Okay I'll place you into their queue.
+(3:21:45pm)Shaunathan S.:Please standby.
+(3:21:54pm)Samim:Okay
+(3:37:28pm)Cameron M.:Welcome to HostGator Live Chat. My name is Cameron and I'd be glad to assist you.
+(3:37:54pm)Samim:thnx for tuch
+(3:38:03pm)Samim:I have a some problem.
+(3:38:21pm)Samim:I could not connect to db
+(3:39:10pm)Samim:I have to used mysql_connect() function
+(3:39:10pm)Cameron M.:Alright I would be happy to help you with that.
+(3:40:05pm)Cameron M.:Have you seen this article on our support website? https://support.hostgator.com/articles/cpanel/how-to-connect-to-the-mysql-database
+(3:42:07pm)Samim:I checked the url but I did not find an error.
+(3:43:39pm)Samim:One thing I have to connect db one server to another server.
+(3:45:37pm)Cameron M.:Let me take a look at that for you. Just a moment please.
+(3:46:16pm)Samim:One site I developed godaddy server and my db is hostgator server, now how can connect to db with godaddy to hostgator
+(3:48:52pm)Cameron M.:Ok what is the domain for your hostgator site?
+(3:49:20pm)Samim:silkrouters.com
+(3:50:36pm)Samim:Main Domain
+prop-genie.com
+(3:53:15pm)Cameron M.:Ok. Just a moment, please.
+(3:53:25pm)Samim:okay
+(3:57:14pm)Cameron M.:Ok, do you know the database name?
+(3:57:35pm)Samim:hbs200_flowerwyz
+(4:01:02pm)Cameron M.:Are you using the Remote MySQL function in cPanel?
+(4:01:41pm)Samim:At first I used remote ip but it's failure..
+(4:02:12pm)Samim:I created remote ip
+(4:06:31pm)Cameron M.:This article can walk you through how to connect that IP to your database here http://support.hostgator.com/articles/cpanel/how-to-connect-to-the-mysql-database-remotely
+(4:08:39pm)Samim:I saw this link before but I did not connect db.
+(4:11:57pm)Cameron M.:You used that cPanel function before and it did not work?
+(4:13:40pm)Samim:If you login my cpanel you can see I created a remote IP-192.45.21.15
+(4:14:23pm)Cameron M.:Ok. I will set a temporary password that will only work for 15 minutes or until I turn it off then your password will work again. Is that ok?
+(4:14:53pm)Samim: define("USERNAME", 'hbs200_flowerwyz');
+define("PASSWORD", 'FLO@}[WER1@T');
+define("DBNAME", 'hbs200_flowerwyz');
+define("HOST", '192.45.21.15');
+$dbh = @mysql_connect(HOST, USERNAME, PASSWORD) or die('I cannot connect to the database because: ' . mysql_error());
+$db = @mysql_select_db(DBNAME, $dbh) or die('I cannot connect to the database because: ' . mysql_error());
+(4:15:17pm)Samim:yes
+(4:18:00pm)Cameron M.:Thank you. Just a moment, please.
+(4:18:12pm)Samim:sure..
+(4:21:26pm)Cameron M.:Thank you for being patient, I am still working on this for you.
+(4:21:44pm)Samim:thnx..
+(4:22:45pm)Cameron M.:Unfortunately it appears that site is not on one of the packages on the account you've verified for in this window. Is it on another customer account with us?
+(4:23:58pm)Samim:no it is same package..
+(4:24:23pm)Samim:Package Baby Croc
+(4:25:43pm)Samim:Is Customer 'Partha Majumder'?
+(4:26:34pm)Cameron M.:That is the name on the account I'm looking at. Let me see what I can do. Just a moment, please.
+(4:29:45pm)Cameron M.:Thank you for being patient, I am still working on this for you.
+(4:29:57pm)Samim:okay.
+(4:33:45pm)Cameron M.:This is just taking a moment, thank you for your patience.
+(4:34:30pm)Samim:ok
+(4:34:53pm)Cameron M.:I found it. Can you give me either the security PIN for that account or the last 4 digits of the credit card on file?
+(4:35:40pm)Samim:please hold on 4 min
+(4:36:14pm)Cameron M.:Ok.
+(4:41:14pm)Cameron M.:Are we still connected?
+(4:41:24pm)Samim:yes
+(4:41:34pm)Samim:I find it.
+(4:41:58pm)Cameron M.:Ok great.
+(4:46:04pm)Cameron M.:Can you provide one of those numbers for me so I can get you verified for that account?
+(4:47:09pm)Samim:Right now I could not found PIN or credit card no.
+(4:47:52pm)Cameron M.:Unfortunately I cannot confirm or deny account information without verifying ownership of the account, it's a measure for the safety of your personal information and website security. I can access and modify the cPanel account with the cPanel login information.
+(4:51:17pm)Cameron M.:Are you able to provide that information at this time?
+(4:51:24pm)Samim:ok if you send a verification email for billing - kfbs05@gmail.com
+(4:51:43pm)Samim:then I confirm you.
+(4:52:17pm)Cameron M.:Sure thing. Just a moment, please.
+(4:52:28pm)Samim:okey
+(4:53:06pm)Cameron M.:Unfortunately I do not have that as the primary email on the account and I can only use the primary email on the account for verification.
+(4:57:24pm)Cameron M.:Are we still connected?
+(4:57:35pm)Samim:yes.
+(4:57:40pm)Samim:1 min.
+(4:58:21pm)Cameron M.:Ok.
+(4:59:33pm)Samim:please send a confirmation mail on my primary mail id- hbs200@gmail.com
+(5:01:43pm)Cameron M.:Ok, just sent the email.
+(5:02:12pm)Samim:thnx.
+(5:02:51pm)Cameron M.:You are welcome.
+(5:03:47pm)Samim:I sent it.
+(5:05:07pm)Cameron M.:Thank you. Let me take a look at that for you. Just a moment please.
+(5:05:35pm)Samim:okay
+(5:08:43pm)Cameron M.:Thank you for being patient, I am still working on this for you.
+(5:09:12pm)Samim:thank you.
+(5:09:45pm)Cameron M.:You are welcome.
+(5:10:20pm)Samim:can I logged out in capanel?
+(5:10:39pm)Cameron M.:Are you able to test the connection at this time?
+(5:11:13pm)Samim:yes
+(5:11:42pm)Cameron M.:Could you do so, please? I think I may have fixed it.
+(5:11:55pm)Samim:okay
+(5:15:03pm)Cameron M.:Any luck?
+(5:15:21pm)Samim:means?
+(5:15:28pm)Cameron M.:Did it work?
+(5:15:49pm)Samim:may I check?
+(5:16:23pm)Cameron M.:Absolutely.
+(5:16:30pm)Samim:1 min
+(5:16:43pm)Cameron M.:Sure thing.
+(5:17:42pm)Samim:again error occur - 'I cannot connect to the database because: Access denied for user 'hbs200_flowerwyz'@'localhost' (using password: YES)'
+(5:18:12pm)Samim:Is that ok my connection string?
+(5:18:34pm)Samim:I sent before.
+(5:20:50pm)Cameron M.:Try using this for your code:
+
+define('DB_NAME', 'hbs200_flowerwyz');
+
+define('DB_USER', 'hbs200_flowerwyz');
+
+define('DB_PASSWORD', 'FLO@}[WER1@T');
+
+define('DB_HOST', '192.45.21.15');
+(5:23:52pm)Samim:error - I cannot connect to the database because: Can't connect to MySQL server on '192.45.21.15' (4)
+(5:24:34pm)Cameron M.:Ok, I'm going to look around in the cPanel a little more. Just a moment, please.
+(5:24:48pm)Samim:okay
+(5:27:12pm)Cameron M.:What is the IP you are trying to connect from?
+(5:27:31pm)Samim:remote ip that I have to created.
+(5:27:46pm)Cameron M.:What is that IP?
+(5:28:15pm)Samim:Databases > RemoteMySql click on
+(5:28:46pm)Cameron M.:What is the IP address?
+(5:28:57pm)Samim:192.45.21.15
+(5:29:41pm)Cameron M.:Ok, change the IP in the line with DB_HOST to 50.87.144.15 and that should do it.
+(5:29:50pm)Samim:okay
+(5:30:54pm)Samim:error - I cannot connect to the database because: Access denied for user 'hbs200_flowerwyz'@'gator4129.hostgator.com' (using password: YES)
+(5:33:46pm)Cameron M.:gator4129 is the wrong server, try using gator3000.hostgator.com as the hostname instead of an IP address.
+(5:37:11pm)Samim:is that correct string-
+
+$dbh = @mysql_connect('gator3000.hostgator.com', 'hbs200_flowerwyz', 'FLO@}[WER1@T') or die('I cannot connect to the database because: ' . mysql_error());
+$db = @mysql_select_db('hbs200_flowerwyz', $dbh) or die('I cannot connect to the database because: ' . mysql_error());
+(5:37:12pm)Cameron M.:Does that help?
+(5:40:13pm)Samim:When i update file but again error - I cannot connect to the database because: Access denied for user 'hbs200_flowerwyz'@'gator4129.hostgator.com' (using password: YES)...
+Host name does not change
+(5:41:54pm)Cameron M.:I'm sorry my php isn't fantastic and unfortunately troubleshooting programming is outside of our scope of support. We can try creating a new database user and giving them permissions for that database and then using that database user to connect.
+(5:43:01pm)Samim:please hold on we have a three db I connect another db.
+(5:43:11pm)Cameron M.:Ok.
+(5:44:40pm)Samim:what will be host name?
+(5:45:38pm)Cameron M.:That would depend what database you are using and what cPanel account that database is in. If it's on the same account as hbs200_flowerwyz than the hostname can be the same.
+(5:47:17pm)Samim:can you know port id?
+(5:48:10pm)Samim:it is not connected please help me..
+(5:48:48pm)Samim:hbs200_flowerwyz in this user what will be host name?
+(5:49:26pm)Cameron M.:Port is 3306
+(5:50:01pm)Cameron M.:That's the same user we were using before.
+(5:50:32pm)Samim:Is that correct ip -50.87.144.15
+(5:51:25pm)Samim:(5:29:41pm)Cameron M.:Ok, change the IP in the line with DB_HOST to 50.87.144.15 and that should do it. this ip not connected..
+(5:51:32pm)Cameron M.:That is correct.
+(5:51:54pm)Samim:please check the link -https://www.flowerwyz.com/flowerwyz/
+(5:52:00pm)Cameron M.:You can also try 50.87.145.226
+(5:54:09pm)Samim:error- I cannot connect to the database because: Access denied for user 'hbs200_flowerwyz'@'gator4129.hostgator.com' (using password: YES)
+(5:54:48pm)Samim:what will be change gator4129.hostgator.com to gator3000.hostgator.com
+(5:55:25pm)Cameron M.:Everything I see here lists your site as being on gator3000. Let me check something.
+(5:56:59pm)Cameron M.:Have you tried creating a new database user and using that to connect instead?
+(5:57:38pm)Samim:if i created new db at that time what will be HOST?
+(5:58:32pm)Cameron M.:It'll be the same host.
+(5:59:07pm)Samim:You mean that HOST - 50.87.144.15 right?
+(5:59:34pm)Cameron M.:That is correct.
+(5:59:42pm)Samim:1 min
+(6:00:02pm)Cameron M.:Sure thing.
+(6:01:58pm)Samim:I created db- hbs200_lms
+(6:02:52pm)Samim:no it is same error will be show- 'I cannot connect to the database because: Access denied for user 'hbs200_admin'@'gator4129.hostgator.com' (using password: YES)'
+(6:03:29pm)Cameron M.:Did you give that user permission to access and modify the database in MySQL Databases?
+(6:03:36pm)Samim:hbs200_lms this db properly run in to localhost
+(6:04:04pm)Samim:user permission all checked
+(6:04:49pm)Cameron M.:I'm sorry but I was not able to find this issue. I can make a ticket for it to be investigate more fully. We will be working hard to resolve this matter as quickly and effectively as possible, but regretfully, will not be able to continue to do so in live support.
+(6:06:42pm)Samim:please I request you to once again please check.
+(6:06:51pm)Samim:it's urgent
+(6:07:30pm)Samim:I am waiting you please talk to another guy.
+(6:07:44pm)Samim:that can help
+(6:09:05pm)Cameron M.:Samim I don't have access to any more possible solutions so I am creating a ticket so we can investigate this issue with greater time and resources.
+(6:10:54pm)Samim:So when it will be solve?
+(6:11:21pm)Samim:In our site MySql connection string is ok.
+(6:11:37pm)Samim:I think it is server problem..
+(6:12:00pm)Samim:Server did not support another server.
+(6:12:41pm)Cameron M.:I'm sorry but due to the nature of support tickets I am unable to generate a definitive time estimate at this time.
+(6:13:13pm)Samim:May I send cpanel user/pwd for review propose?
+(6:13:53pm)Samim:ok thanks Cameron for support me..
+(6:14:30pm)Cameron M.:You are welcome.
+(6:14:58pm)Cameron M.:One last thing, can you try resetting the password for that database user and updating the code with the new password?
+(6:18:08pm)Cameron M.:Are we still connected?
+(6:18:19pm)Samim:yes
+(6:18:36pm)Cameron M.:Are you able to try that at this time?
+(6:19:30pm)Samim:yesh
+(6:20:20pm)Samim:I changed a password for db hbs200_flowerwyz but did not connect.
+(6:20:31pm)Samim:I have one query
+(6:20:58pm)Samim:may I used same username and db name?
+(6:21:19pm)Cameron M.:Yes that won't cause an issue, as long as there's a user and database by those names.
+(6:21:34pm)Samim:host problem gator4129.hostgator.com
+(6:21:46pm)Samim:it is not our HOST
+(6:22:05pm)Samim:my HOST is gator3000.hostgator.com
+(6:22:32pm)Samim:I think for that reason it's not connected.
+(6:22:56pm)Samim:How can change the HOST?
+(6:23:47pm)Cameron M.:That's the field DB_HOST in the code.
+(6:24:25pm)Samim:But I put that HOST it's automatically redirect gator4129.hostgator.com
+(6:24:36pm)Samim:why?
+(6:25:20pm)Cameron M.:I'm not able to determine that with the resources at my disposal at this time. I'm making sure to emphasize it in the ticket.
+(6:26:53pm)Samim:Now what can I do?
+(6:28:51pm)Cameron M.:Your ticket ID is KFR-35973217 we will be contacting you via email regarding this issue.
+(6:29:51pm)Samim:okay.
+x 1 2 3 4 5
+3:28:37
